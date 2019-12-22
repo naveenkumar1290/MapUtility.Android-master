@@ -89,7 +89,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             progressLayout.visibility = View.VISIBLE
 
             if (isChecked) {
-                val directionsCall = RetrofitClient.googleMethods().getDirections(getString(R.string.time_square), getString(R.string.chelsea_market), Constants.GOOGLE_API_KEY,false)
+                val directionsCall = RetrofitClient.googleMethods().getDirections(getString(R.string.time_square), getString(R.string.chelsea_market), Constants.GOOGLE_API_KEY,true)
                 directionsCall.enqueue(object : Callback<Directions> {
                     override fun onResponse(call: Call<Directions>, response: Response<Directions>) {
                         val directions = response.body()!!
@@ -100,7 +100,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                             mMapsController.setMarkersAndRoute(route)
                         } else {
-                            toast(directions.status)
+                            toast(directions.error_message)
                             directionsToggleButton.isChecked = false
                         }
 
